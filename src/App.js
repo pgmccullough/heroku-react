@@ -1,13 +1,28 @@
 import logo from './logo.svg';
 import './App.css';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 function App() {
+
+  const [ warehouses, setWarehouses ] = useState([])
+
+  const getWarehouses = async() => {
+    const { data } = await axios(`${process.env.REACT_APP_API_URI}/warehouses`);
+    console.log(data);
+    setWarehouses(data);
+  }
+
+  useEffect(() => {
+    getWarehouses();
+  },[])
+
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Hi I'm Patrick
+          {JSON.stringify(warehouses)}
         </p>
         <a
           className="App-link"
